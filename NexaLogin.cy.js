@@ -1,0 +1,50 @@
+describe('Login functionality', () => {
+    it('Verify that a user can log in with valid credentials', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get("input[id=':r0:']").type('ahsanlive@gmail.com')
+      cy.get("input[id=':r1:']").type('12345678')
+      cy.get('.css-1id64jh > .MuiButtonBase-root').click()
+    })
+    it(' Verify that an error message is displayed for an invalid email', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get("input[id=':r0:']").type('ahsanlivegmail.com')
+      cy.get("input[id=':r1:']").type('12345678')
+      cy.get('.css-1id64jh > .MuiButtonBase-root').click()
+    })
+    it(' Verify that an error message is displayed for an invalid password', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get("input[id=':r0:']").type('ahsanlive@gmail.com')
+      cy.get("input[id=':r1:']").type('1234567')
+      cy.get('.css-1id64jh > .MuiButtonBase-root').click()
+    })
+    it(' Verify that an error message is displayed when both fields are empty', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get('button[type="submit"]').click();
+      cy.get(".MuiTypography-root > p").should("have.text", "Email is requiredPassword is required")
+      //cy.get(".MuiTypography-root > p").should("have.text", "Password is required")
+    })
+    it.only(' Verify that an error message is displayed when email fields left empty without clicking on login btn', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get("input[id=':r0:']").type(' ')
+      cy.get("input[id=':r1:']").type('12345678')
+     // cy.get('button[type="submit"]').click();
+      cy.get(".MuiTypography-root > p").should("have.text", "Email is required")
+      //cy.get(".MuiTypography-root > p").should("have.text", "Password is required")
+    })
+    it('Remember me Checkbox functionality', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get('.PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3').check()
+
+    })
+    it('Successfully logout', () => {
+      cy.visit('https://nexa-enterprise-platform.web.app/authentication/sign-in')
+      cy.get("input[id=':r0:']").type('ahsanlive@gmail.com')
+      cy.get("input[id=':r1:']").type('12345678')
+      cy.get('.css-1id64jh > .MuiButtonBase-root').click()
+      cy.get('.css-1ghcb7i > .material-icons-round').click()
+
+    })
+  })
+    
+      
+    
